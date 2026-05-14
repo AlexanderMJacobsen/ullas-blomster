@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: ullas-blomster-db
+    environment:
+      POSTGRES_DB: ullas_blomster_db
+      POSTGRES_USER: blomster_user
+      POSTGRES_PASSWORD: blomster_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
