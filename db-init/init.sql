@@ -11,6 +11,13 @@ CREATE TABLE product (
                          occasion VARCHAR(50)
 );
 
+DROP TABLE IF EXISTS custom_bouquet;
+
+CREATE TABLE custom_bouquet (
+                                id SERIAL PRIMARY KEY,
+                                total_price DECIMAL(10,2) NOT NULL
+);
+
 INSERT INTO product (name, description, price, image_url, product_type, category, occasion)
 VALUES
     ('Rød Elegance', 'Classic red roses bouquet', 299.00, 'https://images.unsplash.com/photo-1548013146-72479768bbaa?auto=format&fit=crop&w=800&q=80', 'BOUQUET', 'FLOWERS', 'ROMANCE'),
