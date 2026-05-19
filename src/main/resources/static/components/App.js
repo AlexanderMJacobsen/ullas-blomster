@@ -1,4 +1,4 @@
-import ProductAPI from '../api/productApi.js';
+import ProductAPI from '../services/productApi.js';
 import { Navbar } from './Navbar.js';
 import { Hero } from './Hero.js';
 import { ProductCard } from './ProductCard.js';
@@ -6,6 +6,12 @@ import { Footer } from './Footer.js';
 
 async function init() {
     const app = document.getElementById('app');
+
+    //Routing til indkøbskurv
+    if (window.location.hash === '#cart') {
+        renderCartPage(1);
+        return;
+    }
 
     try {
         const products = await ProductAPI.getAllProducts();

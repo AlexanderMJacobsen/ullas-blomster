@@ -1,19 +1,19 @@
 const OccasionAPI = {
     async getAllOccasions() {
-        const response = await fetch('/api/occasions');
+        const response = await fetch('/services/occasions');
         return response.json();
 
     },
 
     async getProductsByOccasiion(occasion) {
-        const response = await fetch('/api/products?occasion=${occasion}');
+        const response = await fetch('/services/products?occasion=${occasion}');
         return response.json();
 
     }
 }
 document.addEventListener('DOMContentLoaded', () => {
     // Fetch products from your ProductController
-    fetch('/api/products')
+    fetch('/services/products')
         .then(response => response.json())
         .then(products => {
             const grid = document.getElementById('product-list');

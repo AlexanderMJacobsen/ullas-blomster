@@ -4,7 +4,7 @@
  */
 const ProductAPI = {
     // Grund-URL til dit API
-    baseUrl: '/api/products',
+    baseUrl: '/services/products',
 
     /**
      * Henter alle produkter fra databasen.
@@ -28,7 +28,7 @@ const ProductAPI = {
      */
     async getProductsByType(type) {
         try {
-            // Vi antager dit backend endpoint er struktureret som /api/products/type/{type}
+            // Vi antager dit backend endpoint er struktureret som /services/products/type/{type}
             const response = await fetch(`${this.baseUrl}/type/${type}`);
             if (!response.ok) throw new Error(`Kunne ikke hente produkter af typen: ${type}`);
             return await response.json();

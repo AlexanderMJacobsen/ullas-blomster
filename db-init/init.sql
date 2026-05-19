@@ -1,3 +1,6 @@
+DROP TABLE IF EXISTS cart_items;
+DROP TABLE IF EXISTS carts;
+DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS product;
 
 CREATE TABLE product (
@@ -13,16 +16,12 @@ CREATE TABLE product (
 
 INSERT INTO product (name, description, price, image_url, product_type, category, occasion)
 VALUES
-    ('Rød Elegance', 'Classic red roses bouquet', 299.00, 'https://images.unsplash.com/photo-1548013146-72479768bbaa?auto=format&fit=crop&w=800&q=80', 'BOUQUET', 'FLOWERS', 'ROMANCE'),
-    ('Hvid Fred', 'Respectful funeral arrangement', 450.00, 'https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=800&q=80', 'BOUQUET', 'FLOWERS', 'FUNERAL'),
-    ('Birthday Joy', 'Colorful bouquet for celebrations', 199.50, 'https://images.unsplash.com/photo-1596073413206-fb8997380a0a?auto=format&fit=crop&w=800&q=80', 'BOUQUET', 'FLOWERS', 'BIRTHDAY'),
-    ('Graduation Dream', 'Celebrate the big day', 350.00, 'https://images.unsplash.com/photo-1523694553227-ec114999ef90?auto=format&fit=crop&w=800&q=80', 'BOUQUET', 'FLOWERS', 'GRADUATION'),
-    ('Wedding Bliss', 'White lilies and baby breath', 599.00, 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=800&q=80', 'BOUQUET', 'FLOWERS', 'WEDDING'),
-    ('For Mom', 'Pink peonies and eucalyptus', 325.00, 'https://images.unsplash.com/photo-1525263139841-f11ae5ad10fe?auto=format&fit=crop&w=800&q=80', 'BOUQUET', 'FLOWERS', 'MOTHERS_DAY');
+    ('Rød Elegance', 'Classic red roses bouquet', 299.00, 'https://picsum.photos/id/152/800/800', 'BOUQUET', 'FLOWERS', 'ROMANCE'),
+    ('Hvid Fred', 'Respectful funeral arrangement', 450.00, 'https://picsum.photos/id/306/800/800', 'BOUQUET', 'FLOWERS', 'FUNERAL'),
+    ('Birthday Joy', 'Colorful bouquet for celebrations', 199.50, 'https://picsum.photos/id/629/800/800', 'BOUQUET', 'FLOWERS', 'BIRTHDAY'),
+    ('Graduation Dream', 'Celebrate the big day', 350.00, 'https://picsum.photos/id/429/800/800', 'BOUQUET', 'FLOWERS', 'GRADUATION'),
+    ('Wedding Bliss', 'White lilies and baby breath', 599.00, 'https://picsum.photos/id/824/800/800', 'BOUQUET', 'FLOWERS', 'WEDDING'),
+    ('For Mom', 'Pink peonies and eucalyptus', 325.00, 'https://picsum.photos/id/106/800/800', 'BOUQUET', 'FLOWERS', 'MOTHERS_DAY');
 
-UPDATE product SET image_url = 'https://picsum.photos/id/152/800/800' WHERE name = 'Rød Elegance';
-UPDATE product SET image_url = 'https://picsum.photos/id/306/800/800' WHERE name = 'Hvid Fred';
-UPDATE product SET image_url = 'https://picsum.photos/id/629/800/800' WHERE name = 'Birthday Joy';
-UPDATE product SET image_url = 'https://picsum.photos/id/429/800/800' WHERE name = 'Graduation Dream';
-UPDATE product SET image_url = 'https://picsum.photos/id/824/800/800' WHERE name = 'Wedding Bliss';
-UPDATE product SET image_url = 'https://picsum.photos/id/106/800/800' WHERE name = 'For Mom';
+INSERT INTO users (name, email, password, role) VALUES ('Test User', 'test@test.com', 'password', 'customer');
+INSERT INTO carts (user_id, total_price) VALUES (1, 0.0);
