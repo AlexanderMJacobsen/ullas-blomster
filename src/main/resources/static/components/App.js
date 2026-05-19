@@ -3,6 +3,7 @@ import { Navbar } from './Navbar.js';
 import { Hero } from './Hero.js';
 import { ProductCard } from './ProductCard.js';
 import { Footer } from './Footer.js';
+import { renderCustomBouquetPage } from './CustomBouquetPage.js';
 
 async function init() {
     const app = document.getElementById('app');
@@ -28,6 +29,14 @@ async function init() {
 
             ${Footer()}
         `;
+
+        const startButton = document.getElementById('start-build-bouquet-btn');
+
+        if (startButton) {
+            startButton.addEventListener('click', function (){
+                renderCustomBouquetPage()
+            });
+        }
     } catch (error) {
         console.error("Render fejl:", error);
     }

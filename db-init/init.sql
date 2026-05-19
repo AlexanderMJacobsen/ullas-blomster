@@ -26,3 +26,11 @@ UPDATE product SET image_url = 'https://picsum.photos/id/629/800/800' WHERE name
 UPDATE product SET image_url = 'https://picsum.photos/id/429/800/800' WHERE name = 'Graduation Dream';
 UPDATE product SET image_url = 'https://picsum.photos/id/824/800/800' WHERE name = 'Wedding Bliss';
 UPDATE product SET image_url = 'https://picsum.photos/id/106/800/800' WHERE name = 'For Mom';
+
+INSERT INTO product (name, description, price, image_url, product_type, category, occasion)
+VALUES
+    ('Rose', 'Enkelt rød rose', 25.00, '/images/flowers/rose.png', 'FLOWER', 'FLOWERS', 'ROMANCE'),
+    ('Tulipan', 'Enkelt pink tulipan', 20.00, '/images/flowers/tulip.png', 'FLOWER', 'FLOWERS', 'BIRTHDAY'),
+    ('Lilje', 'Enkelt hvid lilje', 30.00, '/images/flowers/lily.png', 'FLOWER', 'FLOWERS', 'WEDDING'),
+    ('Pæon', 'Enkelt lyserød pæon', 35.00, '/images/flowers/peony.png', 'FLOWER', 'FLOWERS', 'ROMANCE'),
+    ('Solsikke', 'Enkelt solsikke', 22.00, '/images/flowers/sunflower.png', 'FLOWER', 'FLOWERS', 'GRADUATION');
