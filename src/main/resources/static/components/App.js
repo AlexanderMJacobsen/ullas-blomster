@@ -33,13 +33,18 @@ async function init() {
         const startButton = document.getElementById('start-build-bouquet-btn');
 
         if (startButton) {
-            startButton.addEventListener('click', function (){
-                renderCustomBouquetPage()
+            startButton.addEventListener('click', function () {
+                window.history.pushState({}, '', '/custom-bouquet');
+                renderCustomBouquetPage();
             });
         }
     } catch (error) {
         console.error("Render fejl:", error);
     }
 }
+//Eventlistener så man kan gå tilbage til forrige side på hjemmesiden
+window.addEventListener('popstate', function () {
+    init();
+});
 
 init();

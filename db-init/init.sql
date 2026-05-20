@@ -15,8 +15,10 @@ DROP TABLE IF EXISTS custom_bouquet;
 
 CREATE TABLE custom_bouquet (
                                 id SERIAL PRIMARY KEY,
-                                total_price DECIMAL(10,2) NOT NULL
+                                total_price DECIMAL(10,2) NOT NULL,
+                                flowers_text TEXT NOT NULL
 );
+
 
 INSERT INTO product (name, description, price, image_url, product_type, category, occasion)
 VALUES

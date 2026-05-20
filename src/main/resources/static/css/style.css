@@ -53,7 +53,7 @@ h1, h2, .logo {
 .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 30px; }
 
 
-/* Build Bouquet Page */
+/* Custom Bouquet side */
 .bouquet-page {
     max-width: 1200px;
     width: 100%;
@@ -103,4 +103,14 @@ h1, h2, .logo {
 
 .remove-flower-btn {
     cursor: pointer;
+}
+
+.bouquet-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.bouquet-actions button {
+    flex: 1;
 }

@@ -2,10 +2,13 @@ import CustomBouquetAPI from '../api/CustomBouquetApi.js';
 import { Navbar } from './Navbar.js';
 import { Footer } from './Footer.js';
 
+//metode som skaber hele byg selv siden
 export async function renderCustomBouquetPage() {
     const app = document.getElementById('app');
 
     try {
+
+        //Henter alle blomster fra API
         const flowers = await CustomBouquetAPI.getAllFlowers();
 
         app.innerHTML = `
@@ -21,6 +24,7 @@ export async function renderCustomBouquetPage() {
 
                         <section class="product-grid">
                             ${
+            //Tjekeker alle blomster
             flowers.map(function(flower) {
                 return `
                                         <div class="product-card">
@@ -57,7 +61,13 @@ export async function renderCustomBouquetPage() {
                             <span id="total-price">0</span> kr.
                         </p>
 
-                        <button id="save-bouquet-btn">Gem buket</button>
+                        <div class="bouquet-actions">
+                            <button id="save-bouquet-btn">Gem buket</button>
+                        
+                            <button id="add-to-cart-btn">
+                                Tilføj til indkøbskurv
+                            </button>
+                        </div>
                     </section>
                 </section>
             </main>
@@ -72,12 +82,14 @@ export async function renderCustomBouquetPage() {
     }
 }
 
+//Denne funktion håndtere alle knapper
 function setupBouquetEvents() {
     const selectedFlowers = [];
     const selectedFlowersList = document.getElementById('selected-flowers');
     const totalPriceElement = document.getElementById('total-price');
     const addButtons = document.querySelectorAll('.add-flower-btn');
     const saveButton = document.getElementById('save-bouquet-btn');
+    const addToCartButton = document.getElementById('add-to-cart-btn');
 
     addButtons.forEach(function(button) {
         button.addEventListener('click', function() {
@@ -93,8 +105,14 @@ function setupBouquetEvents() {
     });
 
     saveButton.addEventListener('click', async function() {
+        const groupedFlowers = groupFlowersById(selectedFlowers);
+
+        const flowersText = groupedFlowers.map(function(flower) {
+            return `${flower.quantity}x ${flower.name}`;
+        }).join(', ');
+
         const bouquet = {
-            flowers: selectedFlowers,
+            flowersText: flowersText,
             totalPrice: calculateTotalPrice(selectedFlowers)
         };
 
@@ -106,8 +124,16 @@ function setupBouquetEvents() {
             alert('Noget gik galt. Buketten blev ikke gemt.');
         }
     });
+
+    addToCartButton.addEventListener('click', function() {
+
+       //Mangler kode til indkøbskurv som ikke er oprettet
+
+    });
+
 }
 
+//Funktion som opdaterer højre side med valgt buket
 function updateBouquetView(selectedFlowers, selectedFlowersList, totalPriceElement) {
     const groupedFlowers = groupFlowersById(selectedFlowers);
 
@@ -146,6 +172,7 @@ function updateBouquetView(selectedFlowers, selectedFlowersList, totalPriceEleme
     });
 }
 
+//Funktion som samler ens blomster sammen
 function groupFlowersById(selectedFlowers) {
     const groupedFlowers = [];
 
@@ -169,6 +196,7 @@ function groupFlowersById(selectedFlowers) {
     return groupedFlowers;
 }
 
+//Funktion som udregner totalpris
 function calculateTotalPrice(selectedFlowers) {
     let total = 0;
 
