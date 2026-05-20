@@ -10,6 +10,23 @@ CREATE TABLE product (
                          category VARCHAR(50),
                          occasion VARCHAR(50)
 );
+DROP TABLE IF EXISTS users;
+
+CREATE TABLE users (
+                       id SERIAL PRIMARY KEY,
+                       first_name VARCHAR(255),
+                       last_name VARCHAR(255),
+                       email VARCHAR(255) NOT NULL UNIQUE,
+                       password VARCHAR(255) NOT NULL,
+                       role VARCHAR(255)
+);
+
+INSERT INTO users (first_name, last_name, email, password, role)
+VALUES
+    ('Raya', 'Test', 'raya@test.dk', '123456rd', 'CUSTOMER'),
+    ('Jihad', 'Test', 'jihad@test.dk', '123456ja', 'CUSTOMER'),
+    ('Alex', 'Test', 'alex@test.dk', '123456ax', 'CUSTOMER'),
+    ('Tobias', 'Test', 'tobias@test.dk', '123456tb', 'CUSTOMER');
 
 INSERT INTO product (name, description, price, image_url, product_type, category, occasion)
 VALUES
