@@ -8,6 +8,7 @@ import { Navbar } from './Navbar.js';
 import { Hero } from './Hero.js';
 import { ProductCard } from './ProductCard.js';
 import { Footer } from './Footer.js';
+import { renderCustomBouquetPage } from './CustomBouquetPage.js';
 
 let currentView = 'home'; // Kan være 'home' eller 'catalog'
 let productsData = [];
@@ -50,6 +51,17 @@ function render() {
             </section>
             ${Footer()}
         `;
+
+        const startButton = document.getElementById('start-build-bouquet-btn');
+
+        if (startButton) {
+            startButton.addEventListener('click', function () {
+                window.history.pushState({}, '', '/custom-bouquet');
+                renderCustomBouquetPage();
+            });
+        }
+    } catch (error) {
+        console.error("Render fejl:", error);
     } else if (currentView === 'catalog') {
         // --- KATALOG / OCCASION VISNING ---
         app.innerHTML = `
@@ -119,6 +131,10 @@ function setupNavbarListeners() {
         });
     }
 }
+//Eventlistener så man kan gå tilbage til forrige side på hjemmesiden
+window.addEventListener('popstate', function () {
+    init();
+});
 
 // Start appen når DOM er klar
 document.addEventListener('DOMContentLoaded', initApp);
