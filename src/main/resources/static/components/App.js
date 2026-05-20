@@ -34,22 +34,29 @@ function render() {
     const app = document.getElementById('app');
 
     if (currentView === 'home') {
+// Filtrering baseret på product type
+        const bouquets = productsData.filter(p => p.productType === 'BOUQUET' || p.productType === 'CUSTOM_BOUQUET');
         app.innerHTML = `
-            ${Navbar()}
-            ${Hero(productsData[0], "Sæson/Højtidlighed Fremvisning", "Oplev vores unikke udvalg af sæsonens smukkeste blomster.")}
-            ${Hero(productsData[1] || productsData[0], "Byg din egen buket", "Sammensæt din helt egen personlige hilsen.", true)}
-            <section class="catalog">
-                <div class="container">
-                    <h2 class="section-title">Katalog Fremvisning</h2>
-                    <div class="product-grid">
-                        ${productsData.map(p => ProductCard(p)).join('')}
-                    </div>
+        ${Navbar()}
+        
+        <!-- Hero 1: Viser den første buket -->
+        ${Hero(bouquets[0], "Sæson/Højtidlighed Fremvisning", "Oplev vores unikke udvalg af sæsonens smukkeste buketter.")}
+        
+        <!-- Hero 2: Viser den anden buket (eller den første som backup) -->
+        ${Hero(bouquets[1] || bouquets[0], "Byg din egen buket", "Sammensæt din helt egen personlige hilsen.", true)}
+        
+        <section class="catalog">
+            <div class="container">
+                <h2 class="section-title">Hele vores katalog</h2>
+                <div class="product-grid">
+                    ${productsData.map(p => ProductCard(p)).join('')}
                 </div>
-            </section>
-            <section class="container">
-                ${Login()}
-            </section>
-            ${Footer()}
+            </div>
+        </section>
+        <section class="container">
+        </section>
+        ${Footer()};
+    }
         `;
 
         // Init funktioner til forsiden
