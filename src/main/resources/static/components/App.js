@@ -1,41 +1,24 @@
-import ProductAPI from '../api/productApi.js';
-
-// To prikker (../) betyder: Gå ud af 'components' mappen, og gå ind i 'api' mappen!
 import { OccasionAPI } from '../api/OccasionAPI.js';
 import { OccasionFilter } from '../api/OccasionFilter.js';
 import productApi from "../api/productApi.js";
-
-// En prik (./) betyder: Bliv i 'components' mappen!
 import { Navbar } from './Navbar.js';
-
 import { Hero } from './Hero.js';
-
 import { ProductCard } from './ProductCard.js';
-
 import { Footer } from './Footer.js';
 import { renderCustomBouquetPage } from './CustomBouquetPage.js';
-
 import { Login, initLogin } from './Login.js';
 
-
-
-async function init() {
-
-    const app = document.getElementById('app');
-let currentView = 'home'; // Kan være 'home' eller 'catalog'
+let currentView = 'home';
 let productsData = [];
 let occasionsData = [];
 
 async function initApp() {
     try {
-
-        const products = await ProductAPI.getAllProducts();
-
-        app.innerHTML = `
-
-            ${Navbar()}
+        // Hent data fra API'er
         productsData = await productApi.getAllProducts();
         occasionsData = await OccasionAPI.getAllOccasions();
+
+        // Første rendering
         render();
     } catch (error) {
         console.error("Fejl under initialisering af app:", error);
@@ -51,51 +34,34 @@ function render() {
     const app = document.getElementById('app');
 
     if (currentView === 'home') {
-        // --- FORSIDE VISNING ---
         app.innerHTML = `
             ${Navbar()}
             ${Hero(productsData[0], "Sæson/Højtidlighed Fremvisning", "Oplev vores unikke udvalg af sæsonens smukkeste blomster.")}
             ${Hero(productsData[1] || productsData[0], "Byg din egen buket", "Sammensæt din helt egen personlige hilsen.", true)}
             <section class="catalog">
-
                 <div class="container">
-
-                    <h2 class="section-title">Katalog</h2>
-
-                    <div class="product-grid">
-
-                        ${products.map(p => ProductCard(p)).join('')}
-
                     <h2 class="section-title">Katalog Fremvisning</h2>
                     <div class="product-grid">
                         ${productsData.map(p => ProductCard(p)).join('')}
                     </div>
-
                 </div>
-
             </section>
-
-
-
             <section class="container">
-
                 ${Login()}
-
             </section>
             ${Footer()}
         `;
 
-
-
+        // Init funktioner til forsiden
+        initLogin();
         const startButton = document.getElementById('start-build-bouquet-btn');
         if (startButton) {
-            startButton.addEventListener('click', function () {
+            startButton.addEventListener('click', () => {
                 window.history.pushState({}, '', '/custom-bouquet');
                 renderCustomBouquetPage();
             });
         }
     } else if (currentView === 'catalog') {
-        // --- KATALOG / OCCASION VISNING ---
         app.innerHTML = `
             ${Navbar()}
             <div class="container" style="display: grid; grid-template-columns: 250px 1fr; gap: 40px; padding: 40px 20px;">
@@ -111,25 +77,8 @@ function render() {
                 </main>
             </div>
             ${Footer()}
-
         `;
 
-
-
-        initLogin();
-
-
-
-    } catch (error) {
-
-        console.error("Render fejl:", error);
-
-    }
-}
-
-
-
-init();
         const container = document.getElementById('occasion-cards-container');
         if (container) {
             occasionsData.forEach(occasion => {
@@ -141,8 +90,6 @@ init();
                 container.appendChild(el);
             });
         }
-
-        // Aktiver filter-scriptet
         OccasionFilter.init();
     }
 
@@ -174,8 +121,5 @@ function setupNavbarListeners() {
     }
 }
 
-window.addEventListener('popstate', function () {
-    initApp();
-});
-
+window.addEventListener('popstate', initApp);
 document.addEventListener('DOMContentLoaded', initApp);
