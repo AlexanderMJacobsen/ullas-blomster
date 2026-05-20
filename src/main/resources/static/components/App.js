@@ -1,3 +1,5 @@
+import ProductAPI from '../api/productApi.js';
+
 // To prikker (../) betyder: Gå ud af 'components' mappen, og gå ind i 'api' mappen!
 import { OccasionAPI } from '../api/OccasionAPI.js';
 import { OccasionFilter } from '../api/OccasionFilter.js';
@@ -5,17 +7,33 @@ import productApi from "../api/productApi.js";
 
 // En prik (./) betyder: Bliv i 'components' mappen!
 import { Navbar } from './Navbar.js';
+
 import { Hero } from './Hero.js';
+
 import { ProductCard } from './ProductCard.js';
+
 import { Footer } from './Footer.js';
 import { renderCustomBouquetPage } from './CustomBouquetPage.js';
 
+import { Login, initLogin } from './Login.js';
+
+
+
+async function init() {
+
+    const app = document.getElementById('app');
 let currentView = 'home'; // Kan være 'home' eller 'catalog'
 let productsData = [];
 let occasionsData = [];
 
 async function initApp() {
     try {
+
+        const products = await ProductAPI.getAllProducts();
+
+        app.innerHTML = `
+
+            ${Navbar()}
         productsData = await productApi.getAllProducts();
         occasionsData = await OccasionAPI.getAllOccasions();
         render();
@@ -39,15 +57,35 @@ function render() {
             ${Hero(productsData[0], "Sæson/Højtidlighed Fremvisning", "Oplev vores unikke udvalg af sæsonens smukkeste blomster.")}
             ${Hero(productsData[1] || productsData[0], "Byg din egen buket", "Sammensæt din helt egen personlige hilsen.", true)}
             <section class="catalog">
+
                 <div class="container">
+
+                    <h2 class="section-title">Katalog</h2>
+
+                    <div class="product-grid">
+
+                        ${products.map(p => ProductCard(p)).join('')}
+
                     <h2 class="section-title">Katalog Fremvisning</h2>
                     <div class="product-grid">
                         ${productsData.map(p => ProductCard(p)).join('')}
                     </div>
+
                 </div>
+
+            </section>
+
+
+
+            <section class="container">
+
+                ${Login()}
+
             </section>
             ${Footer()}
         `;
+
+
 
         const startButton = document.getElementById('start-build-bouquet-btn');
         if (startButton) {
@@ -73,8 +111,25 @@ function render() {
                 </main>
             </div>
             ${Footer()}
+
         `;
 
+
+
+        initLogin();
+
+
+
+    } catch (error) {
+
+        console.error("Render fejl:", error);
+
+    }
+}
+
+
+
+init();
         const container = document.getElementById('occasion-cards-container');
         if (container) {
             occasionsData.forEach(occasion => {
