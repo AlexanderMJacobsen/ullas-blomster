@@ -42,16 +42,17 @@ VALUES
     ('Pæon', 'Enkelt lyserød pæon', 35.00, '/images/flowers/peony.png', 'FLOWER', 'FLOWERS', 'ROMANCE'),
     ('Solsikke', 'Enkelt solsikke', 22.00, '/images/flowers/sunflower.png', 'FLOWER', 'FLOWERS', 'GRADUATION'),
     ('Rød Elegance', 'Klassisk buket med mørkerøde roser. Perfekt til at vise din kærlighed.', 299.00, 'https://picsum.photos/id/152/800/800', 'BOUQUET', 'BOUQUETS', 'ROMANCE'),
-    ('Kærlighedsæske', 'En smuk gavekurv med chokolade og en enkelt rose.', 350.00, 'https://picsum.photos/id/200/800/800', 'GIFT_BASKET', 'GIFT_ITEMS', 'ROMANCE'),
     ('Hvid Fred', 'Respektfuld og smuk bårebuket i hvide nuancer.', 450.00, 'https://picsum.photos/id/306/800/800', 'BOUQUET', 'BOUQUETS', 'FUNERAL'),
-    ('Stille Minde', 'Enkelt hvid lilje til at lægge ved kisten.', 75.00, 'https://picsum.photos/id/310/800/800', 'GIFT_BASKET', 'FLOWERS', 'FUNERAL'),
     ('Birthday Joy', 'Farverig og festlig buket, der bringer glæde til enhver fødselsdag.', 199.50, 'https://picsum.photos/id/629/800/800', 'BOUQUET', 'BOUQUETS', 'BIRTHDAY'),
-    ('Fødselsdags Kurv', 'Gavekurv med lækkerier og små tørrede blomster.', 400.00, 'https://picsum.photos/id/400/800/800', 'GIFT_BASKET', 'GIFT_ITEMS', 'BIRTHDAY'),
     ('Tørret Jubel', 'Flot evighedsbuket af tørrede blomster til fødselaren.', 250.00, 'https://picsum.photos/id/100/800/800', 'BOUQUET', 'DRIED_FLOWERS', 'BIRTHDAY'),
     ('Graduation Dream', 'Fejr den store dag med en sprudlende og stolt buket.', 350.00, 'https://picsum.photos/id/429/800/800', 'BOUQUET', 'BOUQUETS', 'GRADUATION'),
     ('Studenter Bamse', 'Lille bamse med studenterhue til at sætte i buketten.', 49.00, 'https://picsum.photos/id/430/800/800', 'SPECIAL_ORDER', 'ACCESSORIES', 'GRADUATION'),
     ('Wedding Bliss', 'Elegante hvide liljer og fint brudeslør til den perfekte dag.', 599.00, 'https://picsum.photos/id/824/800/800', 'BOUQUET', 'BOUQUETS', 'WEDDING'),
     ('Brudens Drøm', 'Specialbunden brudebuket efter brudens præcise ønsker.', 899.00, 'https://picsum.photos/id/830/800/800', 'CUSTOM_BOUQUET', 'BOUQUETS', 'WEDDING'),
     ('For Mom', 'Lyserøde pæoner og duftende eukalyptus. Fordi hun fortjener det.', 325.00, 'https://picsum.photos/id/106/800/800', 'BOUQUET', 'BOUQUETS', 'MOTHERS_DAY'),
-    ('Mors Plantedrøm', 'En smuk og nem stueplante i krukke.', 150.00, 'https://picsum.photos/id/250/800/800', 'GIFT_BASKET', 'PLANTS', 'MOTHERS_DAY');
-
+    ('Lækker gavekurv med søde sager.', 'Gavekurv 1', 299.00, '/images/gift-baskets/giftbasket1.png', 'GIFT_BASKET', 'GIFT_ITEMS', 'BIRTHDAY'),
+    ('Elegant gavekurv med chokolade og delikatesser.', 'Gavekurv 2', 349.00, '/images/gift-baskets/giftbasket2.png', 'GIFT_BASKET', 'GIFT_ITEMS', 'ROMANCE'),
+    ('Eksklusiv gavekurv med drikkevarer og snacks.', 'Gavekurv 3', 399.00, '/images/gift-baskets/giftbasket3.png', 'GIFT_BASKET', 'GIFT_ITEMS', 'GRADUATION'),
+    ('Flot gavekurv med vin og chokolade.', 'Gavekurv 4', 449.00, '/images/gift-baskets/giftbasket4.png', 'GIFT_BASKET', 'GIFT_ITEMS', 'MOTHERS_DAY'),
+    ('Stor gavekurv med vin, kaffe og søde sager.', 'Gavekurv 5', 599.00, '/images/gift-baskets/giftbasket5.png', 'GIFT_BASKET', 'GIFT_ITEMS', 'WEDDING'),
+    ('Fin gavekurv med eksklusive specialiteter.', 'Gavekurv 6', 349.00, '/images/gift-baskets/giftbasket6.png', 'GIFT_BASKET', 'GIFT_ITEMS', 'FUNERAL');
