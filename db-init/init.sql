@@ -34,6 +34,13 @@ CREATE TABLE custom_bouquet (
                                 flowers_text TEXT NOT NULL
 );
 
+DROP TABLE IF EXISTS custom_gift_basket;
+CREATE TABLE custom_gift_basket (
+                                    id SERIAL PRIMARY KEY,
+                                    total_price DECIMAL(10,2) NOT NULL,
+                                    items_text TEXT NOT NULL
+);
+
 INSERT INTO product (name, description, price, image_url, product_type, category, occasion)
 VALUES
     ('Rose', 'Enkelt rød rose', 25.00, '/images/flowers/rose.png', 'FLOWER', 'FLOWERS', 'ROMANCE'),
@@ -55,4 +62,12 @@ VALUES
     ('Eksklusiv gavekurv med drikkevarer og snacks.', 'Gavekurv 3', 399.00, '/images/gift-baskets/giftbasket3.png', 'GIFT_BASKET', 'GIFT_ITEMS', 'GRADUATION'),
     ('Flot gavekurv med vin og chokolade.', 'Gavekurv 4', 449.00, '/images/gift-baskets/giftbasket4.png', 'GIFT_BASKET', 'GIFT_ITEMS', 'MOTHERS_DAY'),
     ('Stor gavekurv med vin, kaffe og søde sager.', 'Gavekurv 5', 599.00, '/images/gift-baskets/giftbasket5.png', 'GIFT_BASKET', 'GIFT_ITEMS', 'WEDDING'),
-    ('Fin gavekurv med eksklusive specialiteter.', 'Gavekurv 6', 349.00, '/images/gift-baskets/giftbasket6.png', 'GIFT_BASKET', 'GIFT_ITEMS', 'FUNERAL');
+    ('Fin gavekurv med eksklusive specialiteter.', 'Gavekurv 6', 349.00, '/images/gift-baskets/giftbasket6.png', 'GIFT_BASKET', 'GIFT_ITEMS', 'FUNERAL'),
+    ('Rødvin', 'Flaske rødvin til gavekurv', 89.00, '/images/gift-items/item3.png', 'GIFT_ITEM', 'GIFT_ITEMS', 'ROMANCE'),
+    ('Chokolade', 'Eksklusiv chokolade til gavekurv', 49.00, '/images/gift-items/item6.png', 'GIFT_ITEM', 'GIFT_ITEMS', 'BIRTHDAY'),
+    ('Vin', 'gammeldags vin til gavekurv', 59.00, '/images/gift-items/item4.png', 'GIFT_ITEM', 'GIFT_ITEMS', 'MOTHERS_DAY'),
+    ('Bagsværd lakrids', 'rå og blød lakrids', 39.00, 'images/gift-items/item5.png', 'GIFT_ITEM', 'GIFT_ITEMS', 'MOTHERS_DAY'),
+    ('Lakrids by bulow', 'lækre lakridskugler', 59.00, 'images/gift-items/item1.png', 'GIFT_ITEM', 'GIFT_ITEMS', 'ROMANCE'),
+    ('Lakrids colourmix', 'Forskellige smage lakrids', 49.00, 'images/gift-items/item2.png', 'GIFT_ITEM', 'GIFT_ITEMS', 'BIRTHDAY'),
+    ('Lakrids bites', 'Små poser med lakrids', 49.00, 'images/gift-items/item7.png', 'GIFT_ITEM', 'GIFT_ITEMS', 'MOTHERS_DAY');
+
