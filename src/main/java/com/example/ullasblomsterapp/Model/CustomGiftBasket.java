@@ -9,20 +9,20 @@ public class CustomGiftBasket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private double totalPrice;
-
     private String itemsText;
 
     public CustomGiftBasket() {
     }
 
+    //Konstruktør
     public CustomGiftBasket(Long id, double totalPrice, String itemsText) {
         this.id = id;
         this.totalPrice = totalPrice;
         this.itemsText = itemsText;
     }
 
+    //Getters setters
     public Long getId() {
         return id;
     }

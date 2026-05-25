@@ -114,13 +114,9 @@ export async function renderCustomGiftBasketPage() {
             button.addEventListener('click', function() {
 
                 const item = {
-
                     id: button.dataset.id,
-
                     name: button.dataset.name,
-
                     price: Number(button.dataset.price)
-
                 };
 
                 selectedGiftItems.push(item);
@@ -146,10 +142,8 @@ export async function renderCustomGiftBasketPage() {
             const giftBasket = {
 
                 itemsText: itemsText,
-
                 totalPrice:
                     calculateTotalPrice(selectedGiftItems)
-
             };
 
             const result =
@@ -157,19 +151,16 @@ export async function renderCustomGiftBasketPage() {
                     .createCustomGiftBasket(giftBasket);
 
             if (result !== null) {
-
                 alert('Gavekurven blev gemt!');
-
             } else {
-
                 alert('Noget gik galt.');
-
             }
 
         });
 
     }
 
+    //Listen som viser valgte items
     function updateGiftBasketView(selectedGiftItems, selectedGiftItemsList, totalPriceElement) {
         const groupedGiftItems = groupGiftItemsById(selectedGiftItems);
 
@@ -208,6 +199,7 @@ export async function renderCustomGiftBasketPage() {
         });
     }
 
+    //Tilføjer items og viser antal af valgte items
     function groupGiftItemsById(selectedGiftItems) {
         const groupedGiftItems = [];
 
@@ -231,6 +223,7 @@ export async function renderCustomGiftBasketPage() {
         return groupedGiftItems;
     }
 
+    //Regner totalprisen ud
     function calculateTotalPrice(selectedGiftItems) {
         let total = 0;
 
