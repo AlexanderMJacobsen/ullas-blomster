@@ -8,7 +8,11 @@ import { Footer } from './Footer.js';
 import { renderCustomBouquetPage } from './CustomBouquetPage.js';
 import { Login, initLogin } from './Login.js';
 import { renderCartPage } from './CartPage.js';
+import { GiftBasketCard } from './GiftBasketCard.js';
+import { GiftBasketAPI } from '../api/GiftBasketAPI.js';
+import { renderGiftBasketPage } from './GiftBasketPage.js';
 
+let giftBasketsData = [];
 let currentView = 'home';
 let productsData = [];
 let occasionsData = [];
@@ -17,6 +21,7 @@ async function initApp() {
     try {
         productsData = await productApi.getAllProducts();
         occasionsData = await OccasionAPI.getAllOccasions();
+        giftBasketsData = await GiftBasketAPI.getAllGiftBaskets();
         render();
     } catch (error) {
         console.error("Fejl under initialisering af app:", error);
@@ -35,11 +40,11 @@ function render() {
         const bouquets = productsData.filter(p => p.productType === 'BOUQUET' || p.productType === 'CUSTOM_BOUQUET');
         app.innerHTML = `
         ${Navbar()}
-        
+
         ${Hero(bouquets[0], "Sæson/Højtidlighed Fremvisning", "Oplev vores unikke udvalg af sæsonens smukkeste buketter.")}
-        
+
         ${Hero(bouquets[1] || bouquets[0], "Byg din egen buket", "Sammensæt din helt egen personlige hilsen.", true)}
-        
+
         <section class="catalog">
             <div class="container">
                 <h2 class="section-title">Hele vores katalog</h2>
@@ -48,8 +53,16 @@ function render() {
                 </div>
             </div>
         </section>
-        <section class="container">
+
+        <section class="gift-baskets-section">
+            <div class="container">
+                <h2 class="section-title">Gavekurve</h2>
+                <div class="gift-basket-grid">
+                    ${giftBasketsData.map(b => GiftBasketCard(b)).join('')}
+                </div>
+            </div>
         </section>
+
         ${Footer()}
         `;
 
@@ -61,6 +74,10 @@ function render() {
                 renderCustomBouquetPage();
             });
         }
+
+    } else if (currentView === 'giftbaskets') {
+        app.innerHTML = Navbar() + '<div id="gift-basket-root"></div>' + Footer();
+        renderGiftBasketPage(document.getElementById('gift-basket-root'));
 
     } else if (currentView === 'catalog') {
         app.innerHTML = `
@@ -115,6 +132,9 @@ function setupNavbarListeners() {
             } else if (text === 'Kurv' || link.dataset.page === 'cart') {
                 e.preventDefault();
                 navigateTo('cart');
+            } else if (text === 'Gavekurve') {
+                e.preventDefault();
+                navigateTo('giftbaskets');
             }
         });
     });

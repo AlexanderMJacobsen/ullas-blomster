@@ -333,3 +333,170 @@ h1, h2, .logo {
 
     .cart-summary { position: static; }
 }
+
+/* ===== GIFT BASKETS ===== */
+
+.gift-baskets-section {
+    background: white;
+    padding: 60px 0;
+    border-top: 1px solid #eee;
+}
+
+.gift-basket-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 30px;
+}
+
+.gift-basket-card {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    background: var(--cream);
+    transition: box-shadow 0.2s;
+}
+
+.gift-basket-card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+.gift-basket-image {
+    aspect-ratio: 4/3;
+    overflow: hidden;
+}
+
+.gift-basket-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.gift-basket-image-placeholder {
+    width: 100%;
+    height: 100%;
+    background: #e0e0e0;
+}
+
+.gift-basket-info {
+    padding: 20px;
+}
+
+.gift-basket-info h3 {
+    margin: 0 0 8px;
+    font-size: 18px;
+    color: var(--forest-green);
+}
+
+.gift-basket-description {
+    font-size: 13px;
+    color: #666;
+    margin: 0 0 16px;
+    line-height: 1.5;
+}
+
+.gift-basket-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.gift-basket-price {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--forest-green);
+}
+
+.gift-basket-btn {
+    font-size: 13px;
+    padding: 8px 16px;
+}
+
+@media (max-width: 768px) {
+    .gift-basket-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===== GIFT BASKET PAGE ===== */
+
+.gift-basket-page-header {
+    margin-bottom: 40px;
+}
+
+.gift-basket-page-subtitle {
+    color: #666;
+    font-size: 15px;
+    margin-top: 8px;
+}
+
+/* ===== GIFT BASKET DETAILS PAGE ===== */
+
+.gift-basket-details-page {
+    padding-top: 40px;
+}
+
+.gift-basket-back-btn {
+    margin-bottom: 32px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.gift-basket-details-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+}
+
+.gift-basket-details-image img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.gift-basket-details-info h1 {
+    margin: 0 0 12px;
+    font-size: 36px;
+}
+
+.gift-basket-details-occasion {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #888;
+    margin: 0 0 20px;
+}
+
+.gift-basket-details-description {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #555;
+    margin-bottom: 28px;
+}
+
+.gift-basket-details-price {
+    font-size: 26px;
+    font-weight: 500;
+    color: var(--forest-green);
+    margin-bottom: 28px;
+}
+
+.gift-basket-details-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.gift-basket-add-btn {
+    padding: 14px 32px;
+    font-size: 14px;
+    letter-spacing: 0.05em;
+}
+
+@media (max-width: 768px) {
+    .gift-basket-details-layout {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+}
