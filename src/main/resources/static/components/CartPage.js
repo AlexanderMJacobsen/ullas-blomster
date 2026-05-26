@@ -1,3 +1,7 @@
+import { QuantityControls } from './QuantityControls.js';
+import { CartSummary } from './CartSummary.js';
+import { CartIcon } from './CartIcon.js';
+
 export function renderCartPage(container) {
     container.innerHTML = `
         <div class="container cart-page">
@@ -24,26 +28,8 @@ export function renderCartPage(container) {
                     </div>
                 </div>
 
-                <div class="cart-summary">
-                    <h2>Ordreoversigt</h2>
-                    <div class="summary-row">
-                        <span>Subtotal</span>
-                        <span id="cart-subtotal">0,00 kr.</span>
-                    </div>
-                    <div class="summary-row">
-                        <span>Levering</span>
-                        <span id="cart-shipping">Gratis</span>
-                    </div>
-                    <div class="summary-divider"></div>
-                    <div class="summary-row summary-total">
-                        <span>Total</span>
-                        <span id="cart-total">0,00 kr.</span>
-                    </div>
-                    <button class="btn-primary cart-checkout-btn" id="cart-checkout-btn">
-                        Gå til betaling
-                    </button>
-                    <p class="cart-summary-note">Moms inkluderet · Sikker betaling</p>
-                </div>
+                    ${CartSummary.render()}
+                    
             </div>
         </div>
     `;
@@ -79,7 +65,7 @@ function renderCartItems() {
         listEl.innerHTML = '';
         emptyEl.style.display = 'block';
         checkoutBtn.disabled = true;
-        updateSummary(0);
+        CartSummary.update(subtotal);
         return;
     }
 
@@ -101,56 +87,41 @@ function renderCartItems() {
                 </div>
             </div>
             <div class="cart-item-price">${formatPrice(item.price)}</div>
-            <div class="cart-item-qty">
-                <button class="qty-btn" data-action="decrease" data-index="${index}">−</button>
-                <span class="qty-value">${item.quantity}</span>
-                <button class="qty-btn" data-action="increase" data-index="${index}">+</button>
-            </div>
+            
+          ${QuantityControls.render(index, item.quantity)}
+          
             <div class="cart-item-total">${formatPrice(item.price * item.quantity)}</div>
             <button class="cart-remove-btn" data-index="${index}" aria-label="Fjern produkt">✕</button>
         </div>
     `).join('');
 
     const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-    updateSummary(subtotal);
+    CartSummary.update(subtotal);
 
     attachCartEvents();
 }
 
-function updateSummary(subtotal) {
-    const subtotalEl = document.getElementById('cart-subtotal');
-    const totalEl = document.getElementById('cart-total');
-    const shippingEl = document.getElementById('cart-shipping');
-
-    const shippingThreshold = 499;
-    const shippingCost = subtotal >= shippingThreshold || subtotal === 0 ? 0 : 49;
-
-    if (subtotalEl) subtotalEl.textContent = formatPrice(subtotal);
-    if (shippingEl) shippingEl.textContent = shippingCost === 0 ? 'Gratis' : formatPrice(shippingCost);
-    if (totalEl) totalEl.textContent = formatPrice(subtotal + shippingCost);
-}
 
 function attachCartEvents() {
-    document.querySelectorAll('.qty-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const index = parseInt(btn.dataset.index);
-            const action = btn.dataset.action;
-            const cart = getCart();
-
-            if (action === 'increase') {
-                cart[index].quantity += 1;
-            } else if (action === 'decrease') {
-                if (cart[index].quantity > 1) {
-                    cart[index].quantity -= 1;
-                } else {
-                    cart.splice(index, 1);
-                }
+    QuantityControls.attachEvents((index, action) => {
+        const cart = getCart();
+        if (action === 'increase') {
+            cart[index].quantity += 1;
+        } else if (action === 'decrease') {
+            if (cart[index].quantity > 1) {
+                cart[index].quantity -= 1;
+            } else {
+                cart.splice(index, 1);
             }
-
-            saveCart(cart);
-            renderCartItems();
-        });
+        }
+        saveCart(cart);
+        renderCartItems();
     });
+
+    CartSummary.attachEvents(() => {
+        alert('Betalingsflow ikke implementeret endnu.');
+    });
+}
 
     document.querySelectorAll('.cart-remove-btn').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -167,7 +138,6 @@ function attachCartEvents() {
         checkoutBtn.addEventListener('click', () => {
             alert('Betalingsflow ikke implementeret endnu.');
         });
-    }
 }
 
 export function addToCart(product) {
@@ -181,6 +151,7 @@ export function addToCart(product) {
     }
 
     saveCart(cart);
+    CartIcon.update();
 }
 
 export function getCartCount() {

@@ -147,6 +147,24 @@ function setupNavbarListeners() {
             navigateTo('home');
         });
     }
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            const text = link.textContent.trim();
+            if (text === 'Katalog') {
+                e.preventDefault();
+                navigateTo('catalog');
+            } else if (text === 'Hjem') {
+                e.preventDefault();
+                navigateTo('home');
+            } else if (text === 'Indkøbskurv' || link.closest('.cart-icon-wrapper')) {
+                e.preventDefault();
+                navigateTo('cart');
+            } else if (text === 'Gavekurve') {
+                e.preventDefault();
+                navigateTo('giftbaskets');
+            }
+        });
+    });
 }
 
 window.addEventListener('popstate', initApp);
