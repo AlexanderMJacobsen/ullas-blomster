@@ -7,6 +7,7 @@ import { ProductCard } from './ProductCard.js';
 import { Footer } from './Footer.js';
 import { renderCustomBouquetPage } from './CustomBouquetPage.js';
 import { Login, initLogin } from './Login.js';
+import { renderCartPage } from './CartPage.js';
 
 let currentView = 'home';
 let productsData = [];
@@ -14,11 +15,8 @@ let occasionsData = [];
 
 async function initApp() {
     try {
-        // Hent data fra API'er
         productsData = await productApi.getAllProducts();
         occasionsData = await OccasionAPI.getAllOccasions();
-
-        // Første rendering
         render();
     } catch (error) {
         console.error("Fejl under initialisering af app:", error);
@@ -34,15 +32,12 @@ function render() {
     const app = document.getElementById('app');
 
     if (currentView === 'home') {
-// Filtrering baseret på product type
         const bouquets = productsData.filter(p => p.productType === 'BOUQUET' || p.productType === 'CUSTOM_BOUQUET');
         app.innerHTML = `
         ${Navbar()}
         
-        <!-- Hero 1: Viser den første buket -->
         ${Hero(bouquets[0], "Sæson/Højtidlighed Fremvisning", "Oplev vores unikke udvalg af sæsonens smukkeste buketter.")}
         
-        <!-- Hero 2: Viser den anden buket (eller den første som backup) -->
         ${Hero(bouquets[1] || bouquets[0], "Byg din egen buket", "Sammensæt din helt egen personlige hilsen.", true)}
         
         <section class="catalog">
@@ -55,11 +50,9 @@ function render() {
         </section>
         <section class="container">
         </section>
-        ${Footer()};
-    }
+        ${Footer()}
         `;
 
-        // Init funktioner til forsiden
         initLogin();
         const startButton = document.getElementById('start-build-bouquet-btn');
         if (startButton) {
@@ -68,6 +61,7 @@ function render() {
                 renderCustomBouquetPage();
             });
         }
+
     } else if (currentView === 'catalog') {
         app.innerHTML = `
             ${Navbar()}
@@ -98,6 +92,10 @@ function render() {
             });
         }
         OccasionFilter.init();
+
+    } else if (currentView === 'cart') {
+        app.innerHTML = Navbar() + '<div id="cart-root"></div>' + Footer();
+        renderCartPage(document.getElementById('cart-root'));
     }
 
     setupNavbarListeners();
@@ -114,6 +112,9 @@ function setupNavbarListeners() {
             } else if (text === 'Hjem') {
                 e.preventDefault();
                 navigateTo('home');
+            } else if (text === 'Kurv' || link.dataset.page === 'cart') {
+                e.preventDefault();
+                navigateTo('cart');
             }
         });
     });
