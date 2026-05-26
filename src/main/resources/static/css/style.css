@@ -500,3 +500,26 @@ h1, h2, .logo {
         gap: 30px;
     }
 }
+
+/* Indkøbskurv Ikon */
+.cart-icon-wrapper { position: relative; }
+
+.cart-icon-link { text-decoration: none; font-size: 20px; position: relative; display: inline-block; }
+
+.cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    background: var(--forest-green);
+    color: white;
+    border-radius: 50%;
+    font-size: 11px;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.cart-badge-hidden { display: none; }
