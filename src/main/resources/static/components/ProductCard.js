@@ -5,4 +5,7 @@ export const ProductCard = (p) => `
     </div>
     <h4 style="margin-top: 10px;">${p.name}</h4>
     <p>${p.price} DKK</p>
+    ${p.productType === 'GIFT_BASKET'
+    ? '<button class="add-to-cart-btn">Tilføj til indkøbskurv</button>'
+    : ''}
 </div>`;

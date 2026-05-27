@@ -88,12 +88,20 @@ h1, h2, .logo {
 
 .selected-flower-row {
     display: grid;
-    grid-template-columns: 1fr 70px 90px 70px 60px;
+    grid-template-columns: 1fr 60px 80px 70px;
     gap: 8px;
     align-items: center;
     border-bottom: 1px solid #eee;
     padding: 10px 0;
     font-size: 14px;
+}
+
+.selected-flower-row .remove-gift-item-btn,
+.selected-flower-row .remove-flower-btn {
+    grid-column: 1 / -1;
+    width: 80px;
+    justify-self: end;
+    cursor: pointer;
 }
 
 .total-price-row {

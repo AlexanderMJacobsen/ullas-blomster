@@ -7,6 +7,8 @@ import { ProductCard } from './ProductCard.js';
 import { Footer } from './Footer.js';
 import { renderCustomBouquetPage } from './CustomBouquetPage.js';
 import { Login, initLogin } from './Login.js';
+import { renderGiftBasketPage } from './GiftBasketPage.js';
+import { renderCustomGiftBasketPage } from './CustomGiftBasketPage.js';
 
 let currentView = 'home';
 let productsData = [];
@@ -98,6 +100,11 @@ function render() {
             });
         }
         OccasionFilter.init();
+
+    } else if (currentView === 'gift-baskets') {
+        renderGiftBasketPage();
+    } else if (currentView === 'custom-gift-basket') {
+    renderCustomGiftBasketPage();
     }
 
     setupNavbarListeners();
@@ -111,6 +118,12 @@ function setupNavbarListeners() {
             if (text === 'Katalog') {
                 e.preventDefault();
                 navigateTo('catalog');
+            } else if (text === 'Gavekurve') {
+                e.preventDefault();
+                navigateTo('gift-baskets');
+            } else if (text === 'Byg Selv Gavekurv') {
+                e.preventDefault();
+                navigateTo('custom-gift-basket');
             } else if (text === 'Hjem') {
                 e.preventDefault();
                 navigateTo('home');
