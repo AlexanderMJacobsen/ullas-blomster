@@ -23,6 +23,8 @@ export const Login = () => `
             Log Ind
         </button>
     </form>
+    
+<p>Har du ikke en bruger? <a href="register.html">Opret bruger her</a></p>
 
     <p id="login-message"></p>
 </section>
