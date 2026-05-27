@@ -57,5 +57,8 @@ export async function renderGiftBasketPage(container) {
         console.error("Fejl ved hentning af gavekurve:", error);
         document.getElementById('gift-basket-list').innerHTML =
             '<p style="color:#888;">Kunne ikke hente gavekurve.</p>';
+
+        console.error("Fejl på GiftBasketPage:", error);
+
     }
 }

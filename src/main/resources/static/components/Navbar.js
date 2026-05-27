@@ -7,6 +7,8 @@ export const Navbar = () => `
         <li><a href="#">Højtidlighed</a></li>
         <li><a href="#">Anledninger</a></li>
         <li><a href="#">Katalog</a></li>
+        <li><a href="#">Gavekurve</a></li>
+        <li><a href="#">Byg Selv Gavekurv</a></li>
         <li><a href="#">Kontakt</a></li>
         <li><a href="#">Gavekurve</a></li>
          <li><a href="#">${CartIcon.render()}</a></li>
