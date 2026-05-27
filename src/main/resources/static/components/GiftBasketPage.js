@@ -1,60 +1,62 @@
-import productApi from "../api/productApi.js";
-import { Navbar } from "./Navbar.js";
-import { Footer } from "./Footer.js";
-import { ProductCard } from "./ProductCard.js";
+import { GiftBasketAPI } from '../api/GiftBasketAPI.js';
 
-export async function renderGiftBasketPage() {
-
-    const app = document.getElementById('app');
+export async function renderGiftBasketPage(container) {
+    container.innerHTML = `
+        <div class="container gift-basket-page">
+            <div class="gift-basket-page-header">
+                <h1>Gavekurve</h1>
+                <p class="gift-basket-page-subtitle">Vælg en gavekurv til enhver anledning</p>
+            </div>
+            <div id="gift-basket-list" class="gift-basket-grid">
+                <p style="color:#888;">Henter gavekurve...</p>
+            </div>
+        </div>
+    `;
 
     try {
+        const baskets = await GiftBasketAPI.getAllGiftBaskets();
+        const listEl = document.getElementById('gift-basket-list');
 
-        const products = await productApi.getAllProducts();
+        if (!baskets.length) {
+            listEl.innerHTML = '<p style="color:#888;">Ingen gavekurve fundet.</p>';
+            return;
+        }
 
-        const giftBaskets = products.filter(function(product) {
+        listEl.innerHTML = baskets.map(b => `
+            <div class="gift-basket-card" data-id="${b.id}">
+                <div class="gift-basket-image">
+                    ${b.imageUrl
+            ? `<img src="${b.imageUrl}" alt="${b.name}">`
+            : `<div class="gift-basket-image-placeholder"></div>`
+        }
+                </div>
+                <div class="gift-basket-info">
+                    <h3>${b.name}</h3>
+                    <p class="gift-basket-description">${b.description ?? ''}</p>
+                    <div class="gift-basket-footer">
+                        <span class="gift-basket-price">${b.price} kr.</span>
+                        <button class="btn-primary gift-basket-details-btn" data-id="${b.id}">
+                            Se detaljer
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `).join('');
 
-            return product.productType === 'GIFT_BASKET';
-
-        });
-
-        app.innerHTML = `
-
-            ${Navbar()}
-
-            <main class="container">
-                <h1>Gavekurve</h1>
-                <p>
-                    Se vores udvalg af gavekurve til enhver anledning.
-                </p>
-                <section class="product-grid">
-
-                    ${giftBaskets.map(function(product) {
-
-            return ProductCard(product);
-
-        }).join('')}
-                </section>
-            </main>
-
-            ${Footer()}
-
-        `;
-
-        const cartButtons = document.querySelectorAll('.add-to-cart-btn');
-
-        cartButtons.forEach(function(button) {
-            button.addEventListener('click', function() {
-                const productId = button.dataset.id;
-
-                console.log("Tilføj til indkøbskurv:", productId);
-
-                alert("Gavekurven er tilføjet til indkøbskurven");
-
-                //Rigtig kode mangler for at få det ind i indkøbskurven
+        document.querySelectorAll('.gift-basket-details-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const id = parseInt(btn.dataset.id);
+                const basket = baskets.find(b => b.id === id);
+                import('./GiftBasketDetailsPage.js').then(({ renderGiftBasketDetailsPage }) => {
+                    renderGiftBasketDetailsPage(container, basket);
+                });
             });
         });
 
     } catch (error) {
+        console.error("Fejl ved hentning af gavekurve:", error);
+        document.getElementById('gift-basket-list').innerHTML =
+            '<p style="color:#888;">Kunne ikke hente gavekurve.</p>';
 
         console.error("Fejl på GiftBasketPage:", error);
 

@@ -1,3 +1,5 @@
+import { CartIcon } from './CartIcon.js';
+
 export const Navbar = () => `
 <nav class="navbar">
     <div class="logo">Ullas Blomster</div>
@@ -8,6 +10,10 @@ export const Navbar = () => `
         <li><a href="#">Gavekurve</a></li>
         <li><a href="#">Byg Selv Gavekurv</a></li>
         <li><a href="#">Kontakt</a></li>
+        <li><a href="#">Gavekurve</a></li>
+         <li><a href="#">${CartIcon.render()}</a></li>
+        
         <li><a href="/login.html" class="btn-login">Log Ind</a></li>
+        
     </ul>
 </nav>`;
