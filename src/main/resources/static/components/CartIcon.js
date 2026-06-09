@@ -6,7 +6,7 @@ export const CartIcon = {
         const count = getCartCount();
         return `
             <li class="cart-icon-wrapper">
-                <a href="#" class="cart-icon-link">
+                <a href="#" class="cart-icon-link" data-view="cart">
                     <span class="cart-icon">🛒</span>
                     <span class="cart-badge ${count === 0 ? 'cart-badge-hidden' : ''}" id="cart-badge">
                         ${count}

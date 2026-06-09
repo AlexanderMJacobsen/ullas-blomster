@@ -7,7 +7,8 @@ export function renderCartPage(container) {
         <div class="container cart-page">
             <div class="cart-header">
                 <h1>Din Kurv</h1>
-                <a href="/" class="btn-secondary cart-continue-link">← Fortsæt med at handle</a>
+                <!-- Fixed: Changed href to data-view to prevent hard reloading the browser -->
+                <a href="#" data-view="home" class="btn-secondary cart-continue-link">← Fortsæt med at handle</a>
             </div>
 
             <div class="cart-layout">
@@ -24,12 +25,12 @@ export function renderCartPage(container) {
                     </div>
                     <div id="cart-empty-msg" class="cart-empty" style="display:none;">
                         <p>Din kurv er tom.</p>
-                        <a href="/" class="btn-primary">Se vores produkter</a>
+                        <!-- Fixed: Changed href to data-view to prevent hard reloading the browser -->
+                        <a href="#" data-view="home" class="btn-primary">Se vores produkter</a>
                     </div>
                 </div>
 
-                    ${CartSummary.render()}
-                    
+                ${CartSummary.render()}
             </div>
         </div>
     `;
@@ -47,6 +48,10 @@ function getCart() {
 
 function saveCart(cart) {
     localStorage.setItem('cart', JSON.stringify(cart));
+    // Automatically keep the header icon count synced up when state mutations happen
+    if (CartIcon && typeof CartIcon.update === 'function') {
+        CartIcon.update();
+    }
 }
 
 function formatPrice(amount) {
@@ -63,14 +68,15 @@ function renderCartItems() {
 
     if (cart.length === 0) {
         listEl.innerHTML = '';
-        emptyEl.style.display = 'block';
-        checkoutBtn.disabled = true;
-        CartSummary.update(subtotal);
+        if (emptyEl) emptyEl.style.display = 'block';
+        if (checkoutBtn) checkoutBtn.disabled = true;
+        // Fixed: Pass a literal 0 directly instead of targeting an undefined variable string
+        CartSummary.update(0);
         return;
     }
 
-    emptyEl.style.display = 'none';
-    checkoutBtn.disabled = false;
+    if (emptyEl) emptyEl.style.display = 'none';
+    if (checkoutBtn) checkoutBtn.disabled = false;
 
     listEl.innerHTML = cart.map((item, index) => `
         <div class="cart-item" data-index="${index}">
@@ -88,8 +94,8 @@ function renderCartItems() {
             </div>
             <div class="cart-item-price">${formatPrice(item.price)}</div>
             
-          ${QuantityControls.render(index, item.quantity)}
-          
+            ${QuantityControls.render(index, item.quantity)}
+            
             <div class="cart-item-total">${formatPrice(item.price * item.quantity)}</div>
             <button class="cart-remove-btn" data-index="${index}" aria-label="Fjern produkt">✕</button>
         </div>
@@ -101,10 +107,12 @@ function renderCartItems() {
     attachCartEvents();
 }
 
-
 function attachCartEvents() {
+    // 1. Quantity Controls Event Listener Handling
     QuantityControls.attachEvents((index, action) => {
         const cart = getCart();
+        if (!cart[index]) return;
+
         if (action === 'increase') {
             cart[index].quantity += 1;
         } else if (action === 'decrease') {
@@ -118,14 +126,10 @@ function attachCartEvents() {
         renderCartItems();
     });
 
-    CartSummary.attachEvents(() => {
-        alert('Betalingsflow ikke implementeret endnu.');
-    });
-}
-
+    // 2. Remove Button Event Listener Handling (Moved into attachEvents scope)
     document.querySelectorAll('.cart-remove-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-            const index = parseInt(btn.dataset.index);
+            const index = parseInt(btn.dataset.index, 10);
             const cart = getCart();
             cart.splice(index, 1);
             saveCart(cart);
@@ -133,11 +137,10 @@ function attachCartEvents() {
         });
     });
 
-    const checkoutBtn = document.getElementById('cart-checkout-btn');
-    if (checkoutBtn) {
-        checkoutBtn.addEventListener('click', () => {
-            alert('Betalingsflow ikke implementeret endnu.');
-        });
+    // 3. Checkout Button Event Listener Handling
+    CartSummary.attachEvents(() => {
+        alert('Betalingsflow ikke implementeret endnu.');
+    });
 }
 
 export function addToCart(product) {
@@ -151,7 +154,6 @@ export function addToCart(product) {
     }
 
     saveCart(cart);
-    CartIcon.update();
 }
 
 export function getCartCount() {
